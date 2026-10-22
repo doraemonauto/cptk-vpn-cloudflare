@@ -1,0 +1,83 @@
+{
+  "name": "cptk-vpn-cloudflare",
+  "version": "2.0.0",
+  "description": "High-performance Serverless VPN Relay for VLESS over Cloudflare Workers.",
+  "keywords": [
+    "vpn",
+    "cloudflare",
+    "cloudflare-workers",
+    "hono",
+    "bun",
+    "proxy",
+    "serverless",
+    "vless",
+    "websocket",
+    "clash",
+    "singbox"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "author": {
+    "name": "Banten IT Solutions",
+    "email": "admin@bits.co.id",
+    "url": "https://bits.co.id"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Banten-IT-Solutions/BITS-VPN-Cloudflare.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Banten-IT-Solutions/BITS-VPN-Cloudflare/issues"
+  },
+  "homepage": "https://bits.co.id",
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "assets",
+    "KV.json",
+    "proxy.txt",
+    "raw.txt",
+    "scan.ts"
+  ],
+  "scripts": {
+    "cf:config": "bun scripts/gen-wrangler.mjs",
+    "dev": "bun run cf:config && wrangler dev",
+    "build": "bun run cf:config",
+    "deploy": "bun run cf:config && wrangler deploy",
+    "fetch": "bun run fetch.ts",
+    "scan": "bun run scan.ts",
+    "types": "tsc --noEmit",
+    "check": "bun run types",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "simple-git-hooks"
+  },
+  "engines": {
+    "node": ">=20",
+    "bun": ">=1.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260828.1",
+    "@types/bun": "^1.4.0",
+    "@types/node": "^26.4.0",
+    "prettier": "3.9.9",
+    "lint-staged": "17.6.0",
+    "simple-git-hooks": "2.14.0",
+    "typescript": "^7.0.2",
+    "wrangler": "^4.127.0"
+  },
+  "dependencies": {
+    "hono": "^4.13.5"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "lint-staged",
+    "pre-push": "bun run check && bun run build"
+  },
+  "lint-staged": {
+    "*.{js,ts,json,css,md}": "prettier --write"
+  }
+}
